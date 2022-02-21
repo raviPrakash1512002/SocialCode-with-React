@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import styles from "../styles/settings.module.css";
 import { useAuth } from "../hooks";
-import { removeItemFromLocalStorage } from "../utills";
+
 
 const Settings = () => {
   const auth = useAuth();

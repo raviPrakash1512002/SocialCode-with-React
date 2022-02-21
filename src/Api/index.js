@@ -84,3 +84,37 @@ export const editProfile = async (userId, name, password, confirmPassword) => {
     },
   });
 };
+
+
+
+export const fetchUserProfile= (userId) => {
+  return customFetch(API_URLS.userInfo(userId), {
+    method: "GET",
+
+  });
+};
+
+
+export const fetchUserFriends= () => {
+  return customFetch(API_URLS.friends(), {
+    method: "GET",
+
+  });
+};
+
+
+
+export const addFriend= (userId) => {
+  return customFetch(API_URLS.createFriendship(userId), {
+    method: "POST",
+
+  });
+};
+
+
+export const removeFriend= (userId) => {
+  return customFetch(API_URLS.removeFriend(userId), {
+    method: "POST",
+
+  });
+};
