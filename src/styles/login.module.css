@@ -49,4 +49,23 @@
   .field button:disabled {
     cursor: not-allowed;
   }
+  @media only screen and (max-width: 768px) {
+
+  }
+  @media only screen and (max-width: 415px) {
+  
+    .loginForm {
+      background-color: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 69%;
+      margin: 50px auto;
+      border-radius: 6px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
+ }
   

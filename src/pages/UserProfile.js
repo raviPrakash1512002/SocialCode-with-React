@@ -15,8 +15,7 @@ const UserProfile = () => {
   const { addToast } = useToasts();
   const navigate = useNavigate();
   const auth = useAuth();
-  console.log("userId", userId);
-  console.log(auth);
+
 
   useEffect(() => {
     const getUser = async () => {

@@ -47,7 +47,7 @@ const Signup = () => {
     if (response.success) {
       navigate('/login');
       setSigningUp(false);
-      console.log("3");
+    
 
       return addToast('User registered successfully, please login now', {
         appearance: 'success',

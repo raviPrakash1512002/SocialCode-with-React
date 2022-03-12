@@ -2,9 +2,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route,Navigate } from "react-router-dom";
 
 import { useAuth } from "../hooks";
-import { Home, Login,Signup,Settings,UserProfile } from "../pages";
+import { Home, Login,Signup,Settings,UserProfile,MobileHome } from "../pages"
 import { Loader, Navbar } from "./index";
-
+import {db} from '../utills/firebase';
+import { useMediaQuery } from 'react-responsive'
+import { useEffect } from "react";
 
 
 
@@ -19,6 +21,24 @@ const Page = () => {
 
 function App() {
   const auth = useAuth();
+  // const islaptop = useMediaQuery({
+  //   query: "(max-device-width: 1201px )",
+  // });
+  // const islaptop = useMediaQuery({
+  //   query: '(min-width: 1224px)'
+  // })
+  const isMobileDevice = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
+  
+  
+  useEffect(()=>{
+  
+
+  },[isMobileDevice])
+ 
+
+  
 
   if (auth.loading) {
     return <Loader />;
@@ -29,7 +49,8 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={isMobileDevice?<MobileHome />:<Home />} />
+          {/* <Route exact path="/" element={(islaptop&&<Home />)&&(isMobileDevice&&<MobileHome />)} /> */}
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Signup />} />
           

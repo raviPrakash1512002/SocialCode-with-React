@@ -1,11 +1,12 @@
 import { useContext, useState, useEffect } from "react";
 import jwt from "jwt-decode";
-import { AuthContext } from "../providers/AuthProvider";
+import { AuthContext, PostsContext } from "../providers";
 import {
   editProfile,
   fetchUserFriends,
   login as userLogin,
   register,
+  getPosts
 } from "../Api";
 import {
   setItemInLocalStorage,
@@ -81,7 +82,7 @@ export const useProvideAuth = () => {
   };
   const signup = async (name, email, password, confirmPassword) => {
     const response = await register(name, email, password, confirmPassword);
-    console.log(response);
+    
 
     if (response.success) {
       return {
@@ -128,3 +129,78 @@ export const useProvideAuth = () => {
     updateUserFriends
   };
 };
+
+export const usePosts = () => {
+  return useContext(PostsContext);
+};
+
+export const useProvidePosts= () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await getPosts();
+     
+      if (response.success) {
+     
+        setPosts(response.data.posts);
+      }
+
+      setLoading(false);
+    };
+
+    fetchPosts();
+  }, []);
+
+  const addPostToState=(post)=>{
+    const newPosts=[post,...posts];
+
+    setPosts(newPosts);
+  };
+  const addComment = (comment, postId) => {
+    
+    const newPosts = posts.map((post) => {
+      if (post._id === postId) {
+        return { ...post, comments: [...post.comments, comment] };
+      }
+      return post;
+    });
+
+    setPosts(newPosts);
+  };
+  const addLikes = (likeUserId,postId) => {
+  
+    
+    const newPosts = posts.map((post) => {
+      if (post._id === postId) {
+        return { ...post, likes: [...post.likes, likeUserId] };
+      }
+      return post;
+    });
+
+    setPosts(newPosts);
+  };
+
+  const removeLikes = (likeUserId,postId) => {
+    
+    const newPosts = posts.map((post) => {
+      if (post._id === postId) {
+        let newLike=post.likes.filter(l=> l!==likeUserId);
+        return { ...post, likes: [...newLike] };
+      }
+      return post;
+    });
+
+    setPosts(newPosts);
+  };
+  return{
+     data:posts,
+     loading,
+     addPostToState,
+     addComment,
+     addLikes,
+     removeLikes
+  }
+}

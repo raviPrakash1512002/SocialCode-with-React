@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import { ToastProvider } from "react-toast-notifications";
 import "./styles/index.css";
 import { App } from "./components";
-import { AuthProvider } from "./providers/AuthProvider";
-
+import { AuthProvider, PostsProvider } from "./providers";
+import {db} from './utills/firebase'
 ReactDOM.render(
   <React.StrictMode>
     <ToastProvider
@@ -13,7 +13,9 @@ ReactDOM.render(
       placement="top-right"
     >
       <AuthProvider>
-        <App />
+        <PostsProvider>
+          <App />
+        </PostsProvider>
       </AuthProvider>
     </ToastProvider>
   </React.StrictMode>,
